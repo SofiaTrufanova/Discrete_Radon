@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def radon_transform(img):
+def radon_transform(img, K = 501, H = 501):
     """
         Источник - 8 страница книжки из README
         ---
@@ -20,7 +20,6 @@ def radon_transform(img):
     img = np.ones(img.shape) * 255 - img
     N = img.shape[1]  # y
     M = img.shape[0]  # x
-    H, K = 501, 501
     delta_x, delta_y = 2 / (M - 1), 2 / (N - 1)
     x_min, y_min = -1, -1
     p_min, tau_min = np.pi, 10
@@ -48,20 +47,3 @@ def radon_transform(img):
                     summa += img[m, n]
             img_radon[k, h] = delta_x * summa
     return img_radon
-
-
-# считаем картинки
-
-img1 = cv2.imread('1.jpg', cv2.IMREAD_GRAYSCALE)
-img2 = cv2.imread('2.jpg', cv2.IMREAD_GRAYSCALE)
-img3 = cv2.imread('3.jpg', cv2.IMREAD_GRAYSCALE)
-img4 = cv2.imread('4.jpg', cv2.IMREAD_GRAYSCALE)
-img5 = cv2.imread('5.jpg', cv2.IMREAD_GRAYSCALE)
-
-# загрузим новые - результат преобразования Радона
-
-img1_radon = cv2.imwrite('radon_1.jpg', radon_transform(img1))
-img2_radon = cv2.imwrite('radon_2.jpg', radon_transform(img2))
-img3_radon = cv2.imwrite('radon_3.jpg', radon_transform(img3))
-img4_radon = cv2.imwrite('radon_4.jpg', radon_transform(img4))
-img5_radon = cv2.imwrite('radon_5.jpg', radon_transform(img5))
