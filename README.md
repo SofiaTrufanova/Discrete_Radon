@@ -1,7 +1,5 @@
-## Реализация дискретного преобразования Радона с использованием Nearest Neighbour Interpolation
+## Реализация тестов с помощью pytest дискретного преобразования Радона с использованием Nearest Neighbour Interpolation
 
-## Труфанова София, Б05-105б
+## Серов Егор Б01-101
 
-## Литература:
-The Radon Transform - Theory and Implementation
-Toft, Peter Aundal
+## pytest tests/
