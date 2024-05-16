@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Reference &#8212; radon_sofia  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="The Radon Project" href="index.html" />
+
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+
+
+
+
+
+  </head><body>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+
+
+          <div class="body" role="main">
+
+  <section id="reference">
+<h1>Reference<a class="headerlink" href="#reference" title="Link to this heading">¶</a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#module-radon_sofia.discrete_radon" id="id1">radon_sofia.discrete_radon</a></p></li>
+</ul>
+</nav>
+<section id="module-radon_sofia.discrete_radon">
+<span id="radon-sofia-discrete-radon"></span><h2>radon_sofia.discrete_radon<a class="headerlink" href="#module-radon_sofia.discrete_radon" title="Link to this heading">¶</a></h2>
+<p>Realization of radon transform</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="radon_sofia.discrete_radon.min_and_max_m">
+<span class="sig-prename descclassname"><span class="pre">radon_sofia.discrete_radon.</span></span><span class="sig-name descname"><span class="pre">min_and_max_m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number_of_rows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_columns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#radon_sofia.discrete_radon.min_and_max_m" title="Link to this definition">¶</a></dt>
+<dd><p>Считает min_m, max_m</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>number_of_rows</strong> (<em>int</em>) – Число строк в исходном изображении</p></li>
+<li><p><strong>number_of_columns</strong> (<em>int</em>) – Число столбцов в исходном изображении</p></li>
+<li><p><strong>alpha</strong> (<em>int</em>) – Коэффициент наклона предполагаемой прямой</p></li>
+<li><p><strong>beta</strong> (<em>int</em>) – Коэффициент сдвига предполагаемой кривой</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>m_min, m_max</strong> – Минимальное и максимальное m</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="radon_sofia.discrete_radon.radon_transform">
+<span class="sig-prename descclassname"><span class="pre">radon_sofia.discrete_radon.</span></span><span class="sig-name descname"><span class="pre">radon_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">501</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">501</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#radon_sofia.discrete_radon.radon_transform" title="Link to this definition">¶</a></dt>
+<dd><p>Источник - 8 страница книжки из README
+—
+Координаты исходного изображения - [x, y].
+Координаты преобразованного изображения - [p, tau], где y = px + tau
+Введём обозначения:
+x_m = x_min + m * delta_x
+y_n = y_min + n * delta_y
+p_k = p_min + k * delta_k
+tau_h = tau_min + h * delta_tau
+—
+Тут используется - Nearest neighbour interpolation, которая выражает n:
+n = round((p_k * x_m + tau_h - y_min) / delta_y)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>np.array</em><em>(</em><em>)</em>) – Изображение</p></li>
+<li><p><strong>K</strong> (<em>int</em>) – Один из размеров img_radon (img_radon.shape[0])</p></li>
+<li><p><strong>H</strong> (<em>int</em>) – Один из размеров img_radon (img_radon.shape[1])</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>img_radon</strong> – Дискретное преобразование Радона для изображения img</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array(shape=(K, H))</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">radon_sofia</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">The Radon Project</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Sofia.
+
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+
+      |
+      <a href="_sources/reference.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+
+
+
+  </body>
+</html>

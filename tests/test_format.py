@@ -1,8 +1,10 @@
+import click.testing
 import numpy as np
 import cv2
 from skimage.transform import radon
 import pytest
-from discrete_radon.discrete_radon import radon_transform
+from src.radon_sofia.discrete_radon import radon_transform
+
 
 # Three lines with different colors
 def create_color_lines_image(width, height):
@@ -12,9 +14,11 @@ def create_color_lines_image(width, height):
     cv2.line(img, (50, 50), (150, 50), (0, 0, 255), 1)  # Red линия
     return img
 
+
 # To grayscale
 def to_grayscale(img):
     return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
 
 # Test for three lines
 def test_radon_transform_color_lines():

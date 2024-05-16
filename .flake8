@@ -1,0 +1,10 @@
+[flake8]
+select = ANN,B,B9,BLK,C,D,DAR,E,F,I,S,W
+ignore = E203,E501,W503
+max-line-length = 80
+application-import-names = radon_sofia,tests
+import-order-style = google
+per-file-ignores =
+    tests/*:S101
+    tests/*:S101,ANN
+    noxfile.py:ANN
